@@ -83,7 +83,7 @@ public class slotstime
 
     private void commonSetup(final FMLCommonSetupEvent event)
     {
-        LOGGER.info("SlotsTime Config");
+        LOGGER.info("SlotsTime Config ");
     }
 
 
