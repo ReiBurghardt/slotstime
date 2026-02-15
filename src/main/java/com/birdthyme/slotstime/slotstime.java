@@ -1,5 +1,7 @@
 package com.birdthyme.slotstime;
 
+import com.birdthyme.slotstime.blocks.SlotsBlocks;
+import com.birdthyme.slotstime.items.SlotsItems;
 import com.mojang.logging.LogUtils;
 import net.minecraft.client.Minecraft;
 import net.minecraft.core.registries.Registries;
@@ -38,25 +40,13 @@ public class slotstime
 
     private static final Logger LOGGER = LogUtils.getLogger();
 
-    public static final DeferredRegister<Block> BLOCKS = DeferredRegister.create(ForgeRegistries.BLOCKS, MODID);
-    public static final DeferredRegister<Item> ITEMS = DeferredRegister.create(ForgeRegistries.ITEMS, MODID);
     public static final DeferredRegister<CreativeModeTab> CREATIVE_MODE_TABS = DeferredRegister.create(Registries.CREATIVE_MODE_TAB, MODID);
-
-
-    public static final RegistryObject<Block> EXAMPLE_BLOCK = BLOCKS.register("example_block", () -> new Block(BlockBehaviour.Properties.of().mapColor(MapColor.STONE)));
-    public static final RegistryObject<Item> EXAMPLE_BLOCK_ITEM = ITEMS.register("example_block", () -> new BlockItem(EXAMPLE_BLOCK.get(), new Item.Properties()));
-
-
-    public static final RegistryObject<Item> EXAMPLE_ITEM = ITEMS.register("example_item", () -> new Item(new Item.Properties().food(new FoodProperties.Builder()
-            .alwaysEat().nutrition(1).saturationMod(2f).build())));
 
 
     public static final RegistryObject<CreativeModeTab> SLOTSTAB = CREATIVE_MODE_TABS.register("slotstime_tab", () -> CreativeModeTab.builder()
             .withTabsBefore(CreativeModeTabs.COMBAT)
-            .icon(() -> EXAMPLE_ITEM.get().getDefaultInstance())
-            .displayItems((parameters, output) -> {
-                output.accept(EXAMPLE_ITEM.get());
-            }).title(Component.literal("SlotsTime Tab")).build());
+            .icon(() -> SlotsBlocks.SLOTMACHINE_ITEM.get().getDefaultInstance())
+            .title(Component.literal("SlotsTime Tab")).build());
 
 
     public slotstime(FMLJavaModLoadingContext context)
@@ -67,8 +57,8 @@ public class slotstime
         modEventBus.addListener(this::commonSetup);
 
 
-        BLOCKS.register(modEventBus);
-        ITEMS.register(modEventBus);
+        SlotsBlocks.register(modEventBus);
+        SlotsItems.register(modEventBus);
         CREATIVE_MODE_TABS.register(modEventBus);
 
 
@@ -92,11 +82,12 @@ public class slotstime
         if (event.getTabKey() == slotstime.SLOTSTAB.getKey()) {
 
             //Blocks
-            event.accept(EXAMPLE_BLOCK_ITEM);
+            event.accept(SlotsBlocks.SLOTMACHINE_ITEM);
 
 
             //Items
-            event.accept(EXAMPLE_ITEM);
+            event.accept(SlotsItems.SHRIMP_COCKTAIL);
+            event.accept(SlotsItems.SHRIMP);
         }
     }
 
