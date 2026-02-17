@@ -18,6 +18,12 @@ public class ItemModelProvider extends net.minecraftforge.client.model.generator
     protected void registerModels() {
         simpleItem(SlotsItems.SHRIMP_COCKTAIL);
         simpleItem(SlotsItems.SHRIMP);
+        simpleItem(SlotsItems.COINMOLD);
+        simpleItem(SlotsItems.IRONCOIN);
+        simpleItem(SlotsItems.GOLDCOIN);
+        simpleItem(SlotsItems.DIAMONDCOIN);
+        simpleItem(SlotsItems.NETHERITECOIN);
+
     }
     private ItemModelBuilder simpleItem(RegistryObject<Item> item) {
         return withExistingParent(item.getId().getPath(),

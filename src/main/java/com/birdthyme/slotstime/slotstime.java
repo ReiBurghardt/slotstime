@@ -86,8 +86,18 @@ public class slotstime
 
 
             //Items
+            ///Food
             event.accept(SlotsItems.SHRIMP_COCKTAIL);
             event.accept(SlotsItems.SHRIMP);
+
+            ///Coins
+            event.accept(SlotsItems.COINMOLD);
+            event.accept(SlotsItems.IRONCOIN);
+            event.accept(SlotsItems.GOLDCOIN);
+            event.accept(SlotsItems.DIAMONDCOIN);
+            event.accept(SlotsItems.NETHERITECOIN);
+            event.accept(SlotsItems.CCCCCCCCOIN);
+
         }
     }
 

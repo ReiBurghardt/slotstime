@@ -1,3 +1,8 @@
-// 1.20.1	2026-02-15T01:11:53.5388166	Item Models: slotstime
+// 1.20.1	2026-02-17T02:42:26.8012958	Item Models: slotstime
+4961048660d91a8dee5cc454e5748d747c920406 assets/slotstime/models/item/coin_mold.json
+1ebec9d5c7696abca5dbaf02343a5993b09cbdba assets/slotstime/models/item/diamond_coin.json
+fba2e1f1900f865a6ad7e89b50dedf92096a1ac8 assets/slotstime/models/item/gold_coin.json
+cf79704c85380f1302687882d816df4ff5047522 assets/slotstime/models/item/iron_coin.json
+890cc3b461e72b89c56568434343c64752138ad7 assets/slotstime/models/item/netherite_coin.json
 e4d60844379fa8fb8dd08a35a9f95e28022c9317 assets/slotstime/models/item/shrimp.json
 8495d3cbf6158fb2f6d9f4170afb57f9f7bb4e58 assets/slotstime/models/item/shrimp_cocktail.json
