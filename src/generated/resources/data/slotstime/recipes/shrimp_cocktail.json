@@ -1,0 +1,27 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
+    {
+      "item": "slotstime:shrimp"
+    },
+    {
+      "item": "slotstime:shrimp"
+    },
+    {
+      "item": "slotstime:shrimp"
+    },
+    {
+      "item": "slotstime:shrimp"
+    },
+    {
+      "item": "minecraft:glass_bottle"
+    },
+    {
+      "item": "minecraft:red_dye"
+    }
+  ],
+  "result": {
+    "item": "slotstime:shrimp_cocktail"
+  }
+}

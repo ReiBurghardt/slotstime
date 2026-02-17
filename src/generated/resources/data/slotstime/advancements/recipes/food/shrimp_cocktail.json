@@ -1,0 +1,35 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_shrimp": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "slotstime:shrimp"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "slotstime:shrimp_cocktail"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    }
+  },
+  "requirements": [
+    [
+      "has_shrimp",
+      "has_the_recipe"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "slotstime:shrimp_cocktail"
+    ]
+  },
+  "sends_telemetry_event": false
+}
