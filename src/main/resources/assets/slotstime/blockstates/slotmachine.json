@@ -1,0 +1,10 @@
+{
+  "variants": {
+    "half=lower": {
+      "model": "slotstime:block/slotmachine_bottom"
+    },
+    "half=upper": {
+      "model": "slotstime:block/slotmachine_bottom"
+    }
+  }
+}

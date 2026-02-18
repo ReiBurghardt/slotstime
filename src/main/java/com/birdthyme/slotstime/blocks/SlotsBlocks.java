@@ -24,7 +24,7 @@ public class SlotsBlocks {
 
 
     public static final RegistryObject<Block> SLOTMACHINE = BLOCKS.register("slotmachine", () ->
-            new SlotMachine(BlockBehaviour.Properties.copy(Blocks.STONE)));
+            new SlotMachine(BlockBehaviour.Properties.copy(Blocks.STONE).lightLevel((plight) -> 5).noOcclusion()));
 
     public static final RegistryObject<Item> SLOTMACHINE_ITEM = ITEMS.register("slotmachine", () ->
             new DoubleHighBlockItem(SLOTMACHINE.get(), new Item.Properties()));

@@ -14,7 +14,7 @@ public class BlockStateProvider extends net.minecraftforge.client.model.generato
 
     @Override
     protected void registerStatesAndModels() {
-        blockWithItem(SlotsBlocks.SLOTMACHINE);
+
 
     }
 
