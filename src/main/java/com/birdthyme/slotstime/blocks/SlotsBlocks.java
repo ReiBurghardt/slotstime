@@ -1,7 +1,9 @@
 package com.birdthyme.slotstime.blocks;
 
+import com.birdthyme.slotstime.blocks.custom.SlotMachine;
 import com.birdthyme.slotstime.slotstime;
 import net.minecraft.world.item.BlockItem;
+import net.minecraft.world.item.DoubleHighBlockItem;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
@@ -22,10 +24,10 @@ public class SlotsBlocks {
 
 
     public static final RegistryObject<Block> SLOTMACHINE = BLOCKS.register("slotmachine", () ->
-            new Block(BlockBehaviour.Properties.copy(Blocks.STONE)));
+            new SlotMachine(BlockBehaviour.Properties.copy(Blocks.STONE)));
 
     public static final RegistryObject<Item> SLOTMACHINE_ITEM = ITEMS.register("slotmachine", () ->
-            new BlockItem(SLOTMACHINE.get(), new Item.Properties()));
+            new DoubleHighBlockItem(SLOTMACHINE.get(), new Item.Properties()));
 
 
 

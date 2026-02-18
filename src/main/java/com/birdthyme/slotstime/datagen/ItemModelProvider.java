@@ -23,6 +23,7 @@ public class ItemModelProvider extends net.minecraftforge.client.model.generator
         simpleItem(SlotsItems.GOLDCOIN);
         simpleItem(SlotsItems.DIAMONDCOIN);
         simpleItem(SlotsItems.NETHERITECOIN);
+        simpleItem(SlotsItems.CCCCCCCCOIN);
 
     }
     private ItemModelBuilder simpleItem(RegistryObject<Item> item) {
