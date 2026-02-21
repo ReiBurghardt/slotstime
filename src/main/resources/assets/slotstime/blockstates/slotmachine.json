@@ -1,18 +1,35 @@
 {
   "variants": {
-    "facing=north,half=lower": {
+    "facing=north,half=lower,is_gambling=false": {
       "model": "slotstime:block/slotmachine_bottom"
     },
-    "facing=east,half=lower": {
+    "facing=east,half=lower,is_gambling=false": {
       "model": "slotstime:block/slotmachine_bottom",
       "y": 90
     },
-    "facing=south,half=lower": {
+    "facing=south,half=lower,is_gambling=false": {
       "model": "slotstime:block/slotmachine_bottom",
       "y": 180
     },
-    "facing=west,half=lower": {
+    "facing=west,half=lower,is_gambling=false": {
       "model": "slotstime:block/slotmachine_bottom",
+      "y": 270
+    },
+
+
+    "facing=north,half=lower,is_gambling=true": {
+      "model": "slotstime:block/slotmachine_bottom_gambling"
+    },
+    "facing=east,half=lower,is_gambling=true": {
+      "model": "slotstime:block/slotmachine_bottom_gambling",
+      "y": 90
+    },
+    "facing=south,half=lower,is_gambling=true": {
+      "model": "slotstime:block/slotmachine_bottom_gambling",
+      "y": 180
+    },
+    "facing=west,half=lower,is_gambling=true": {
+      "model": "slotstime:block/slotmachine_bottom_gambling",
       "y": 270
     },
 

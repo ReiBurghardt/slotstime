@@ -43,9 +43,10 @@ import javax.annotation.Nullable;
 public class SlotMachine extends BaseEntityBlock{
     public static final DirectionProperty FACING = HorizontalDirectionalBlock.FACING;
     public static final EnumProperty<DoubleBlockHalf> HALF = BlockStateProperties.DOUBLE_BLOCK_HALF;
+    public static final BooleanProperty IS_GAMBLING = BooleanProperty.create("is_gambling");
     public SlotMachine(Properties pProperties) {
         super(pProperties);
-        this.registerDefaultState(this.stateDefinition.any().setValue(HALF, DoubleBlockHalf.LOWER).setValue(FACING, Direction.NORTH));
+        this.registerDefaultState(this.stateDefinition.any().setValue(HALF, DoubleBlockHalf.LOWER).setValue(FACING, Direction.NORTH).setValue(IS_GAMBLING, false));
     }
 
     @Override
@@ -151,7 +152,7 @@ public class SlotMachine extends BaseEntityBlock{
 
 
     protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> pBuilder) {
-        pBuilder.add(HALF, FACING);
+        pBuilder.add(HALF, FACING, IS_GAMBLING);
     }
 
 
@@ -173,9 +174,19 @@ public class SlotMachine extends BaseEntityBlock{
     @Override
     public InteractionResult use(BlockState pState, Level pLevel, BlockPos pPos, Player pPlayer, InteractionHand pHand, BlockHitResult pHit) {
         ItemStack handItem = pPlayer.getItemInHand(InteractionHand.MAIN_HAND);
-        if(handItem.is(SlotsTags.Items.tag("gambling_coins"))){
+        BlockState isGamblingState = pState.setValue(IS_GAMBLING, true);
+        if(handItem.is(SlotsTags.Items.tag("gambling_coins")) && !pState.getValue(IS_GAMBLING)){
             pLevel.playSound(pPlayer, pPos, SoundType.AMETHYST.getHitSound(), SoundSource.BLOCKS, 1f, 1f);
-            System.out.println("success");
+            int itemCount = handItem.getCount();
+            handItem.setCount(itemCount - 1);
+            pLevel.setBlock(pPos, isGamblingState, 3);
+            if(pState.getValue(HALF) == DoubleBlockHalf.UPPER){
+                BlockState otherState = pLevel.getBlockState(pPos.below()).setValue(IS_GAMBLING, true);
+                pLevel.setBlock(pPos.below(), otherState, 3);
+            }else{
+                BlockState otherState = pLevel.getBlockState(pPos.above()).setValue(IS_GAMBLING, true);
+                pLevel.setBlock(pPos.above(), otherState, 3);
+            }
             return InteractionResult.CONSUME;
         }else{
             return InteractionResult.FAIL;
