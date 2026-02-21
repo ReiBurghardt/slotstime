@@ -3,7 +3,7 @@
 	"texture_size": [64, 64],
 	"textures": {
 		"1": "slotstime:block/slotmachine_bottom",
-		"particle": "slotstime:block/slotmachine_bottom"
+		"particle": "minecraft:block/black_glazed_terracotta"
 	},
 	"elements": [
 		{

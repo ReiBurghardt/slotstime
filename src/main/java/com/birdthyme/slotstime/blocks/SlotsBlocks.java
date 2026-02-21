@@ -29,7 +29,11 @@ public class SlotsBlocks {
 
 
     public static final RegistryObject<Block> SLOTMACHINE = BLOCKS.register("slotmachine", () ->
-            new SlotMachine(BlockBehaviour.Properties.copy(Blocks.STONE).lightLevel((plight) -> 5).noOcclusion().pushReaction(PushReaction.BLOCK)));
+            new SlotMachine(BlockBehaviour.Properties.copy(Blocks.STONE)
+                    .lightLevel((plight) -> 5)
+                    .noOcclusion()
+                    .pushReaction(PushReaction.BLOCK)
+                    .explosionResistance(2147483647f)));
 
     public static final RegistryObject<BlockEntityType<SlotMachineEntity>> SLOTMACHINE_BE =
             BLOCK_ENTITIES.register("slotmachine_be", () ->
