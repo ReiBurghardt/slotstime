@@ -1,5 +1,6 @@
 package com.birdthyme.slotstime.blocks.custom;
 
+import com.birdthyme.slotstime.Config;
 import com.birdthyme.slotstime.blocks.SlotsBlocks;
 import com.birdthyme.slotstime.items.SlotsItems;
 import com.birdthyme.slotstime.tags.SlotsTags;
@@ -37,13 +38,30 @@ import net.minecraft.world.level.gameevent.GameEventListener;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraftforge.common.SoundAction;
 import net.minecraftforge.common.data.SoundDefinition;
+import org.openjdk.nashorn.internal.objects.Global;
 
 import javax.annotation.Nullable;
+import java.util.ArrayList;
 
 public class SlotMachine extends BaseEntityBlock{
     public static final DirectionProperty FACING = HorizontalDirectionalBlock.FACING;
     public static final EnumProperty<DoubleBlockHalf> HALF = BlockStateProperties.DOUBLE_BLOCK_HALF;
     public static final BooleanProperty IS_GAMBLING = BooleanProperty.create("is_gambling");
+
+
+    public float ironLoot = 0.1f;
+    public float goldLoot = 0.05f;
+    public float diamondLoot = 0.01f;
+    public float netheriteLoot = 0.001f;
+    public float cLoot = 0.0001f;
+
+    public float gamblingRange = 100000f;
+
+
+
+    public float[] lootChances = {ironLoot, goldLoot, diamondLoot, netheriteLoot, cLoot};
+
+
     public SlotMachine(Properties pProperties) {
         super(pProperties);
         this.registerDefaultState(this.stateDefinition.any().setValue(HALF, DoubleBlockHalf.LOWER).setValue(FACING, Direction.NORTH).setValue(IS_GAMBLING, false));
@@ -175,22 +193,64 @@ public class SlotMachine extends BaseEntityBlock{
     public InteractionResult use(BlockState pState, Level pLevel, BlockPos pPos, Player pPlayer, InteractionHand pHand, BlockHitResult pHit) {
         ItemStack handItem = pPlayer.getItemInHand(InteractionHand.MAIN_HAND);
         BlockState isGamblingState = pState.setValue(IS_GAMBLING, true);
+
         if(handItem.is(SlotsTags.Items.tag("gambling_coins")) && !pState.getValue(IS_GAMBLING)){
-            pLevel.playSound(pPlayer, pPos, SoundType.AMETHYST.getHitSound(), SoundSource.BLOCKS, 1f, 1f);
+            pLevel.playSound(pPlayer, pPos, SoundType.AMETHYST.getHitSound(), SoundSource.BLOCKS, 1f, 1f);//add custom sound
+
+            slotMath(pPlayer.getItemInHand(InteractionHand.MAIN_HAND));
             int itemCount = handItem.getCount();
             handItem.setCount(itemCount - 1);
+
             pLevel.setBlock(pPos, isGamblingState, 3);
+
             if(pState.getValue(HALF) == DoubleBlockHalf.UPPER){
                 BlockState otherState = pLevel.getBlockState(pPos.below()).setValue(IS_GAMBLING, true);
                 pLevel.setBlock(pPos.below(), otherState, 3);
-            }else{
+            }
+            else{
                 BlockState otherState = pLevel.getBlockState(pPos.above()).setValue(IS_GAMBLING, true);
                 pLevel.setBlock(pPos.above(), otherState, 3);
             }
+
             return InteractionResult.CONSUME;
-        }else{
+
+        }
+        else{
             return InteractionResult.FAIL;
         }
 
     }
+
+
+    public int[] slotMath(ItemStack coin){
+        float ironLuck = Config.ironCoinLuck;
+        float goldLuck = Config.goldCoinLuck;
+        float diamondLuck = Config.diamondCoinLuck;
+        float netheriteLuck = Config.netheriteCoinLuck;
+        float cLuck = Config.cccccccCoinLuck;
+
+        int[] slotNumbers = new int[3];
+
+        if(coin.is(SlotsItems.IRONCOIN.get())){
+            for(int loop = 0; loop <= lootChances.length-1; loop++){
+                lootLuck(lootChances[loop], ironLuck);//save values to new list
+                System.out.println(lootLuck(lootChances[loop], ironLuck));
+            }
+        }
+
+
+
+
+        return slotNumbers;
+    }
+
+    public float lootLuck(float loot, float luck){
+        float newChance = loot * luck;
+        float resultChance = loot + (newChance/10);
+
+        return resultChance;
+    }
+
+
+
 }
