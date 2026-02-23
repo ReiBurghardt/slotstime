@@ -10,5 +10,9 @@
   "item.slotstime.ccccccc_coin": "Coinius of the Coindium, the most Coining Coin of Coins, Coinarch of Coinem III",
 
 
-  "block.slotstime.slotmachine": "Slot Machine"
+  "block.slotstime.slotmachine": "Slot Machine",
+
+  "stat.slotstime.gambled": "Times Gambled",
+  "stat.slotstime.times_won": "Gambling Wins"
+
 }

@@ -44,15 +44,15 @@ public class SlotMachineRenderer implements BlockEntityRenderer<SlotMachineEntit
             pPoseStack.scale(0.125f, 0.125f, 0.125f);
             pPoseStack.mulPose(Axis.YP.rotationDegrees(SlotMachine.getDirection(blockState)));
 //2
-            itemRenderer.renderStatic(itemStack0, ItemDisplayContext.FIXED, getLightLevel(pBlockEntity.getLevel(), pBlockEntity.getBlockPos()),
+            itemRenderer.renderStatic(itemStack1, ItemDisplayContext.FIXED, 14680272,
                     OverlayTexture.NO_OVERLAY, pPoseStack, pBuffer, pBlockEntity.getLevel(), 1);
 //1
             pPoseStack.translate(-1.5f, 0.0f, 0f);
-            itemRenderer.renderStatic(itemStack1, ItemDisplayContext.FIXED, getLightLevel(pBlockEntity.getLevel(), pBlockEntity.getBlockPos()),
+            itemRenderer.renderStatic(itemStack0, ItemDisplayContext.FIXED, 14680272,
                     OverlayTexture.NO_OVERLAY, pPoseStack, pBuffer, pBlockEntity.getLevel(), 1);
 //3
             pPoseStack.translate(3f, 0.0f, 0f);
-            itemRenderer.renderStatic(itemStack2, ItemDisplayContext.FIXED, getLightLevel(pBlockEntity.getLevel(), pBlockEntity.getBlockPos()),
+            itemRenderer.renderStatic(itemStack2, ItemDisplayContext.FIXED, 14680272,
                     OverlayTexture.NO_OVERLAY, pPoseStack, pBuffer, pBlockEntity.getLevel(), 1);
             pPoseStack.popPose();
         }
@@ -62,9 +62,4 @@ public class SlotMachineRenderer implements BlockEntityRenderer<SlotMachineEntit
 
     }
 
-    private int getLightLevel(Level level, BlockPos pos) {
-        int bLight = level.getBrightness(LightLayer.BLOCK, pos);
-        int sLight = level.getBrightness(LightLayer.SKY, pos);
-        return LightTexture.pack(bLight, sLight);
-    }
 }

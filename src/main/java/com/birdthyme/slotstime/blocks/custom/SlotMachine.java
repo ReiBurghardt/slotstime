@@ -3,6 +3,7 @@ package com.birdthyme.slotstime.blocks.custom;
 import com.birdthyme.slotstime.Config;
 import com.birdthyme.slotstime.blocks.SlotsBlocks;
 import com.birdthyme.slotstime.items.SlotsItems;
+import com.birdthyme.slotstime.other.GamblingStat;
 import com.birdthyme.slotstime.tags.SlotsTags;
 import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.client.renderer.MultiBufferSource;
@@ -42,6 +43,8 @@ import org.openjdk.nashorn.internal.objects.Global;
 
 import javax.annotation.Nullable;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Random;
 
 public class SlotMachine extends BaseEntityBlock{
     public static final DirectionProperty FACING = HorizontalDirectionalBlock.FACING;
@@ -55,7 +58,7 @@ public class SlotMachine extends BaseEntityBlock{
     public float netheriteLoot = 0.001f;
     public float cLoot = 0.0001f;
 
-    public float gamblingRange = 100000f;
+    public int gamblingRange = 100000;
 
 
 
@@ -194,24 +197,30 @@ public class SlotMachine extends BaseEntityBlock{
         ItemStack handItem = pPlayer.getItemInHand(InteractionHand.MAIN_HAND);
         BlockState isGamblingState = pState.setValue(IS_GAMBLING, true);
 
-        if(handItem.is(SlotsTags.Items.tag("gambling_coins")) && !pState.getValue(IS_GAMBLING)){
-            pLevel.playSound(pPlayer, pPos, SoundType.AMETHYST.getHitSound(), SoundSource.BLOCKS, 1f, 1f);//add custom sound
-
-            slotMath(pPlayer.getItemInHand(InteractionHand.MAIN_HAND));
-            int itemCount = handItem.getCount();
-            handItem.setCount(itemCount - 1);
-
-            pLevel.setBlock(pPos, isGamblingState, 3);
-
-            if(pState.getValue(HALF) == DoubleBlockHalf.UPPER){
-                BlockState otherState = pLevel.getBlockState(pPos.below()).setValue(IS_GAMBLING, true);
-                pLevel.setBlock(pPos.below(), otherState, 3);
+        if(handItem.is(SlotsTags.Items.tag("gambling_coins")) && !pState.getValue(IS_GAMBLING) && pState.getValue(HALF) == DoubleBlockHalf.UPPER){
+            if(pLevel.isClientSide){
+                pLevel.playSound(pPlayer, pPos, SoundType.AMETHYST.getHitSound(), SoundSource.BLOCKS, 1f, 1f);
             }
-            else{
-                BlockState otherState = pLevel.getBlockState(pPos.above()).setValue(IS_GAMBLING, true);
-                pLevel.setBlock(pPos.above(), otherState, 3);
-            }
+            if(!pLevel.isClientSide) {
+                BlockEntity blockEntity = pLevel.getBlockEntity(pPos);
+                if(blockEntity instanceof SlotMachineEntity){
+                    SlotMachineEntity slotMachineEntity = (SlotMachineEntity)blockEntity;
+                    slotMachineEntity.slotNumbers = slotMath(pPlayer.getItemInHand(InteractionHand.MAIN_HAND));
+                }
+                int itemCount = handItem.getCount();
+                handItem.setCount(itemCount - 1);
 
+                pLevel.setBlock(pPos, isGamblingState, 3);
+
+                if (pState.getValue(HALF) == DoubleBlockHalf.UPPER) {
+                    BlockState otherState = pLevel.getBlockState(pPos.below()).setValue(IS_GAMBLING, true);
+                    pLevel.setBlock(pPos.below(), otherState, 3);
+                } else {
+                    BlockState otherState = pLevel.getBlockState(pPos.above()).setValue(IS_GAMBLING, true);
+                    pLevel.setBlock(pPos.above(), otherState, 3);
+                }
+            }
+            pPlayer.awardStat(GamblingStat.GAMBLED.get());
             return InteractionResult.CONSUME;
 
         }
@@ -229,19 +238,22 @@ public class SlotMachine extends BaseEntityBlock{
         float netheriteLuck = Config.netheriteCoinLuck;
         float cLuck = Config.cccccccCoinLuck;
 
+        float[] lootRanges = new float[5];
+
         int[] slotNumbers = new int[3];
 
         if(coin.is(SlotsItems.IRONCOIN.get())){
             for(int loop = 0; loop <= lootChances.length-1; loop++){
-                lootLuck(lootChances[loop], ironLuck);//save values to new list
-                System.out.println(lootLuck(lootChances[loop], ironLuck));
+                lootRanges[loop] = Math.round(gamblingRange * lootLuck(lootChances[loop], ironLuck));
             }
+
+
         }
 
 
 
 
-        return slotNumbers;
+        return randomNumbers(lootRanges);
     }
 
     public float lootLuck(float loot, float luck){
@@ -249,6 +261,33 @@ public class SlotMachine extends BaseEntityBlock{
         float resultChance = loot + (newChance/10);
 
         return resultChance;
+    }
+
+
+    public int[] randomNumbers(float[] lootRanges){
+        Random rand = new Random();
+        int[] gamblingNumbers = new int[3];
+
+        for(int loop = 0; loop <= 2; loop++){
+            int randNumber = rand.nextInt(gamblingRange);
+            if (randNumber <= lootRanges[0]){
+                gamblingNumbers[loop] = 1;
+            }
+            else if (randNumber <= lootRanges[0] + lootRanges[1] && randNumber > lootRanges[0]) {
+                gamblingNumbers[loop] = 2;
+            }
+            else if (randNumber <= lootRanges[1] + lootRanges[2] && randNumber > lootRanges[1]) {
+                gamblingNumbers[loop] = 3;
+            }
+            else if (randNumber <= lootRanges[2] + lootRanges[3] && randNumber > lootRanges[2]) {
+                gamblingNumbers[loop] = 4;
+            }
+            else if (randNumber <= lootRanges[3] + lootRanges[4] && randNumber > lootRanges[3]) {
+                gamblingNumbers[loop] = 5;
+            }
+        }
+
+        return gamblingNumbers;
     }
 
 

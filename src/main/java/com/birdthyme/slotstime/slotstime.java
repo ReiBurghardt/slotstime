@@ -2,6 +2,7 @@ package com.birdthyme.slotstime;
 
 import com.birdthyme.slotstime.blocks.SlotsBlocks;
 import com.birdthyme.slotstime.items.SlotsItems;
+import com.birdthyme.slotstime.other.GamblingStat;
 import com.mojang.logging.LogUtils;
 import net.minecraft.client.Minecraft;
 import net.minecraft.core.registries.Registries;
@@ -59,6 +60,7 @@ public class slotstime
 
         SlotsBlocks.register(modEventBus);
         SlotsItems.register(modEventBus);
+        GamblingStat.register(modEventBus);
         CREATIVE_MODE_TABS.register(modEventBus);
 
 

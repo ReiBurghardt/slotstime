@@ -10,19 +10,20 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
+import org.apache.commons.lang3.ObjectUtils;
 
 import javax.annotation.Nullable;
 import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.Arrays;
 
 public class SlotMachineEntity extends BlockEntity {
     public long tickCount;
     public int[] slotNumbers = new int[3];
-
-
 
 
 
@@ -32,12 +33,33 @@ public class SlotMachineEntity extends BlockEntity {
 
     public ArrayList<ItemStack> SlotItem(){
         ArrayList<ItemStack> ItemList = new ArrayList<ItemStack>();
-        ItemList.add(new ItemStack(Items.DIAMOND));
-        ItemList.add(new ItemStack(Items.DIAMOND));
-        ItemList.add(new ItemStack(Items.DIAMOND));
 
+        for(int loop = 0; loop <= slotNumbers.length-1; loop++){
+            if(slotNumbers[loop] == 1){
+                ItemList.add(new ItemStack(Items.IRON_INGOT));
+            } else if (slotNumbers[loop] == 2) {
+                ItemList.add(new ItemStack(Items.GOLD_INGOT));
+            } else if (slotNumbers[loop] == 3) {
+                ItemList.add(new ItemStack(Items.DIAMOND));
+            } else if (slotNumbers[loop] == 4) {
+                ItemList.add(new ItemStack(Items.NETHERITE_INGOT));
+            } else if (slotNumbers[loop] == 5) {
+                ItemList.add(new ItemStack(Items.NETHER_STAR));
+            } else{
+                ItemList.add(new ItemStack(Items.COAL));
+            }
+
+        }
+        if(ItemList.isEmpty()){
+            ItemList.add(new ItemStack(Items.COAL));
+            ItemList.add(new ItemStack(Items.COAL));
+            ItemList.add(new ItemStack(Items.COAL));
+        }
         return ItemList;
     }
+
+
+
 
 
 
