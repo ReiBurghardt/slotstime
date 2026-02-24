@@ -12,9 +12,11 @@ import net.minecraft.client.renderer.entity.ItemRenderer;
 import net.minecraft.client.renderer.texture.OverlayTexture;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.world.InteractionHand;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemDisplayContext;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LightLayer;
 import net.minecraft.world.level.block.Rotation;
@@ -33,11 +35,21 @@ public class SlotMachineRenderer implements BlockEntityRenderer<SlotMachineEntit
     @Override
     public void render(SlotMachineEntity pBlockEntity, float pPartialTick, PoseStack pPoseStack, MultiBufferSource pBuffer, int pPackedLight, int pPackedOverlay) {
         BlockState blockState = pBlockEntity.getBlockState();
-        if(SlotMachine.getHalf(blockState)){
+        boolean isGambling = blockState.getValue(SlotMachine.IS_GAMBLING);
+        if(SlotMachine.getHalf(blockState) && isGambling){
             ItemRenderer itemRenderer = Minecraft.getInstance().getItemRenderer();
-            ItemStack itemStack0 = pBlockEntity.SlotItem().get(0);
-            ItemStack itemStack1 = pBlockEntity.SlotItem().get(1);
-            ItemStack itemStack2 = pBlockEntity.SlotItem().get(2);
+
+            if (pBlockEntity.ItemList.isEmpty()) {
+                pBlockEntity.ItemList.add(new ItemStack(Items.COAL));
+                pBlockEntity.ItemList.add(new ItemStack(Items.AIR));
+                pBlockEntity.ItemList.add(new ItemStack(Items.AIR));
+            }
+
+            ItemStack itemStack0 = pBlockEntity.ItemList.get(0);
+            ItemStack itemStack1 = pBlockEntity.ItemList.get(1);
+            ItemStack itemStack2 = pBlockEntity.ItemList.get(2);
+
+
 
             pPoseStack.pushPose();
             pPoseStack.translate(0.5f, 0.2f, 0.5f);

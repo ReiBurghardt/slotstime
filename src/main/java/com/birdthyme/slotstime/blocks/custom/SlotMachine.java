@@ -32,6 +32,7 @@ import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityTicker;
 import net.minecraft.world.level.block.entity.BlockEntityType;
+import net.minecraft.world.level.block.entity.JukeboxBlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.*;
@@ -78,19 +79,13 @@ public class SlotMachine extends BaseEntityBlock{
 
     public static float getDirection(BlockState pState){
         String facingValue = pState.getValue(FACING).toString();
-        switch (facingValue){
-            case "north":
-                return 0f;
-            case "east":
-                return 270f;
-            case "south":
-                return 180f;
-            case "west":
-                return 90f;
-
-            default:
-                return 0f;
-        }
+        return switch (facingValue) {
+            case "north" -> 0f;
+            case "east" -> 270f;
+            case "south" -> 180f;
+            case "west" -> 90f;
+            default -> 0f;
+        };
     }
 
     public static boolean getHalf(BlockState pState){
@@ -238,16 +233,20 @@ public class SlotMachine extends BaseEntityBlock{
         float netheriteLuck = Config.netheriteCoinLuck;
         float cLuck = Config.cccccccCoinLuck;
 
+        float coinLuck = 0;
+
         float[] lootRanges = new float[5];
 
-        int[] slotNumbers = new int[3];
+        if(coin.is(SlotsItems.IRONCOIN.get())) {coinLuck = ironLuck;}
+        else if (coin.is(SlotsItems.GOLDCOIN.get())) {coinLuck = goldLuck;}
+        else if (coin.is(SlotsItems.DIAMONDCOIN.get())) {coinLuck = diamondLuck;}
+        else if (coin.is(SlotsItems.NETHERITECOIN.get())) {coinLuck = netheriteLuck;}
+        else if (coin.is(SlotsItems.CCCCCCCCOIN.get())) {coinLuck = cLuck;}
+        else {coinLuck = 0;}
 
-        if(coin.is(SlotsItems.IRONCOIN.get())){
-            for(int loop = 0; loop <= lootChances.length-1; loop++){
-                lootRanges[loop] = Math.round(gamblingRange * lootLuck(lootChances[loop], ironLuck));
-            }
 
-
+        for(int loop = 0; loop <= lootChances.length-1; loop++){
+            lootRanges[loop] = Math.round(gamblingRange * lootLuck(lootChances[loop], coinLuck));
         }
 
 
@@ -255,6 +254,7 @@ public class SlotMachine extends BaseEntityBlock{
 
         return randomNumbers(lootRanges);
     }
+
 
     public float lootLuck(float loot, float luck){
         float newChance = loot * luck;
@@ -290,6 +290,14 @@ public class SlotMachine extends BaseEntityBlock{
         return gamblingNumbers;
     }
 
+    @Nullable
+    public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level pLevel, BlockState pState, BlockEntityType<T> pBlockEntityType) {
+        if(pLevel.isClientSide){
+            return null;
+        }
 
+        return pState.getValue(IS_GAMBLING) && pState.getValue(HALF) == DoubleBlockHalf.UPPER ? createTickerHelper(pBlockEntityType, SlotsBlocks.SLOTMACHINE_BE.get(),
+                (pLevel1, pPos, pState1, pBlockEntity) -> pBlockEntity.tick(pLevel1, pPos, pState1, pBlockEntity)) : null;
+    }
 
 }

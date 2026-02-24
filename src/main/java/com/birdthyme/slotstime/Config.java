@@ -34,8 +34,8 @@ public class Config
     private static final ForgeConfigSpec.IntValue DIAMOND_COIN_LUCK = BUILDER
             .comment("\n")
             .comment("The luck value of the diamond coin, Value can be >= 0")
-            .comment("Default value = 10")
-            .defineInRange("diamondCoinLuck", 10, 0, Integer.MAX_VALUE);
+            .comment("Default value = 20")
+            .defineInRange("diamondCoinLuck", 20, 0, Integer.MAX_VALUE);
 
     private static final ForgeConfigSpec.IntValue NETHERITE_COIN_LUCK = BUILDER
             .comment("\n")
