@@ -97,7 +97,7 @@ public class RecipeProvider extends net.minecraft.data.recipes.RecipeProvider {
                 .unlockedBy(getHasName(Items.NETHERITE_INGOT), has(Items.NETHERITE_INGOT))
                 .save(p_251297_, "slotstime:ingot_netherite_coin");
 
-        ShapedRecipeBuilder.shaped(RecipeCategory.MISC, SlotsItems.CCCCCCCCOIN.get(), 4)
+        ShapedRecipeBuilder.shaped(RecipeCategory.MISC, SlotsItems.CCCCCCCCOIN.get(), 2)
                 .pattern("ISI")
                 .pattern("SMS")
                 .pattern("ISI")

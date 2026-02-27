@@ -54,7 +54,7 @@ public class SlotMachine extends BaseEntityBlock{
 
     public Player player;
 
-
+    public int sum = 0;
     public float ironLoot = 0.1f;
     public float goldLoot = 0.05f;
     public float diamondLoot = 0.01f;
@@ -264,7 +264,7 @@ public class SlotMachine extends BaseEntityBlock{
         float resultChance = loot + (newChance/10);
         if(resultChance >= 1.5){
             return 0f;
-        } else if (resultChance >= 1.0) {
+        } else if (resultChance >= 0.7) {
             return 0.7f;
         }
 
@@ -275,9 +275,22 @@ public class SlotMachine extends BaseEntityBlock{
     public int[] randomNumbers(float[] lootRanges){
         Random rand = new Random();
         int[] gamblingNumbers = new int[3];
+        int randNumber;
+        sum = 0;
+
+        for (float value : lootRanges) {
+            sum += value;
+        }
 
         for(int loop = 0; loop <= 2; loop++){
-            int randNumber = rand.nextInt(gamblingRange);
+
+            if(sum > gamblingRange){
+                randNumber = rand.nextInt(sum);
+            }else{
+                randNumber = rand.nextInt(gamblingRange);
+            }
+
+
             if (randNumber <= lootRanges[0]){
                 gamblingNumbers[loop] = 1;
             }

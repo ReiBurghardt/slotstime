@@ -131,7 +131,7 @@ public class SlotMachineEntity extends BlockEntity {
             if(this.slotNumbers[0] != 0 && this.slotNumbers[0] == this.slotNumbers[1] && this.slotNumbers[1] == this.slotNumbers[2] && !this.gamblingOutput && tickCount > rollStop +11){
                 this.gamblingOutput = true;
                 Player gamblingPlayer = pLevel.getPlayerByUUID(playerUUID);
-                gamblingPlayer.awardStat(GamblingStat.GAMBLED.get());
+                gamblingPlayer.awardStat(GamblingStat.TIMES_WON.get());
                 ResourceLocation resourcelocation;
                 switch (slotNumbers[0]){
                     case 1:

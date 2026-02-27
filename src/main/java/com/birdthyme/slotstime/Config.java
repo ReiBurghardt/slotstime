@@ -46,8 +46,8 @@ public class Config
     private static final ForgeConfigSpec.IntValue CCCCCCC_COIN_LUCK = BUILDER
             .comment("\n")
             .comment("The luck value of the ccccccc coin, Value can be >= 0")
-            .comment("Default value = 1000")
-            .defineInRange("cccccccCoinLuck", 1000, 0, Integer.MAX_VALUE);
+            .comment("Default value = 500")
+            .defineInRange("cccccccCoinLuck", 500, 0, Integer.MAX_VALUE);
 
 
 

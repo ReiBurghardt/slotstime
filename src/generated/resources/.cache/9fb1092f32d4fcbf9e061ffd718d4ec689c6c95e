@@ -1,4 +1,4 @@
-// 1.20.1	2026-02-27T02:11:25.0232292	Recipes
+// 1.20.1	2026-02-27T04:15:26.1761344	Recipes
 c970e3b8ef55a839bcb2764002b356bb844d108b data/slotstime/advancements/recipes/food/cod_shrimp.json
 f506a518eddc20942e97a3e835e8536d9bee2189 data/slotstime/advancements/recipes/food/salmon_shrimp.json
 8416886eba55c996a8e180ef0126ccdb3e58c3af data/slotstime/advancements/recipes/food/shrimp_cocktail.json
@@ -10,7 +10,7 @@ f506a518eddc20942e97a3e835e8536d9bee2189 data/slotstime/advancements/recipes/foo
 7d0682e3e71bf4043946d7e75328ac3d50bddb69 data/slotstime/advancements/recipes/misc/scrap_netherite_coin.json
 1043a0508ad8d12a32cb410a4bc1f5885adbf0f9 data/slotstime/advancements/recipes/misc/slotmachine.json
 03f16e2db8908da9e2404f43b73722b0c35bce4b data/slotstime/advancements/recipes/tools/coin_mold.json
-bd3b49d93060357e17d1cffa203bc8f50e65084a data/slotstime/recipes/ccccccc_coin.json
+71bb6c5410e959b4cd581089be900393a7ec1f53 data/slotstime/recipes/ccccccc_coin.json
 f7e57234270309d08ef1756681f9735d95867175 data/slotstime/recipes/cod_shrimp.json
 2dd2781806528f86f64791d9bdf9d463201fb589 data/slotstime/recipes/coin_mold.json
 5bf45130436858ede82dc9a8d4b8be035e872f56 data/slotstime/recipes/diamond_coin.json
