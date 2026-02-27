@@ -17,10 +17,10 @@ public class GamblingStat extends Stats {
     public static final DeferredRegister<ResourceLocation> STATS = DeferredRegister.create(Registries.CUSTOM_STAT, slotstime.MODID);
 
     public static final RegistryObject<ResourceLocation> GAMBLED =
-            STATS.register("gambled", () -> new ResourceLocation(slotstime.MODID, "gambled"));
+            STATS.register("gambled", () -> ResourceLocation.fromNamespaceAndPath(slotstime.MODID, "gambled"));
 
     public static final RegistryObject<ResourceLocation> TIMES_WON =
-            STATS.register("times_won", () -> new ResourceLocation(slotstime.MODID, "times_won"));
+            STATS.register("times_won", () -> ResourceLocation.fromNamespaceAndPath(slotstime.MODID, "times_won"));
 
     public static void register(IEventBus eventBus) {
         STATS.register(eventBus);

@@ -27,6 +27,7 @@ public class SlotsItems {
                     .food(new FoodProperties.Builder()
                             .nutrition(1)
                             .saturationMod(1f)
+                            .fast()
                             .build())));
 
     //Coins

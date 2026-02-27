@@ -1,0 +1,58 @@
+{
+  "slotmachine_roll": {
+    "sounds": [
+      {
+        "name": "slotstime:slotmachine_roll",
+        "volume":   1
+      }
+    ]
+  },
+  "slotmachine_lose": {
+    "sounds": [
+      {
+        "name": "slotstime:slotmachine_lose",
+        "volume":   1
+      }
+    ]
+  },
+  "iron_win": {
+    "sounds": [
+      {
+        "name": "slotstime:iron_win",
+        "volume":   1
+      }
+    ]
+  },
+  "gold_win": {
+    "sounds": [
+      {
+        "name": "slotstime:gold_win",
+        "volume":   1
+      }
+    ]
+  },
+  "diamond_win": {
+    "sounds": [
+      {
+        "name": "slotstime:diamond_win",
+        "volume":   1
+      }
+    ]
+  },
+  "netherite_win": {
+    "sounds": [
+      {
+        "name": "slotstime:netherite_win",
+        "volume":   1
+      }
+    ]
+  },
+  "c_win": {
+    "sounds": [
+      {
+        "name": "slotstime:c_win",
+        "volume":   1
+      }
+    ]
+  }
+}

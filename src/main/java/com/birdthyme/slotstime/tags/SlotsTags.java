@@ -9,7 +9,7 @@ import net.minecraft.world.item.Item;
 public class SlotsTags {
     public static class Items{
         public static TagKey<Item> tag(String name){
-            return ItemTags.create(new ResourceLocation(slotstime.MODID, name));
+            return ItemTags.create(ResourceLocation.fromNamespaceAndPath(slotstime.MODID, name));
         }
     }
 }

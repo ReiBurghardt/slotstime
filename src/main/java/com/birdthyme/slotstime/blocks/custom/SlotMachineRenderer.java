@@ -28,9 +28,19 @@ import net.minecraft.world.level.block.state.properties.Half;
 import net.minecraft.world.phys.Vec3;
 import org.joml.Quaternionf;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+
 public class SlotMachineRenderer implements BlockEntityRenderer<SlotMachineEntity> {
 //THANKS Tutorials-By-Kaupenjoe Forge-Tutorial-1.20.X
     public SlotMachineRenderer(BlockEntityRendererProvider.Context context) {}
+
+
+
+    ItemStack itemStack0;
+    ItemStack itemStack1;
+    ItemStack itemStack2;
+
 
     @Override
     public void render(SlotMachineEntity pBlockEntity, float pPartialTick, PoseStack pPoseStack, MultiBufferSource pBuffer, int pPackedLight, int pPackedOverlay) {
@@ -39,16 +49,16 @@ public class SlotMachineRenderer implements BlockEntityRenderer<SlotMachineEntit
         if(SlotMachine.getHalf(blockState) && isGambling){
             ItemRenderer itemRenderer = Minecraft.getInstance().getItemRenderer();
 
-            if (pBlockEntity.ItemList.isEmpty()) {
-                pBlockEntity.ItemList.add(new ItemStack(Items.COAL));
-                pBlockEntity.ItemList.add(new ItemStack(Items.AIR));
-                pBlockEntity.ItemList.add(new ItemStack(Items.AIR));
+            if(pBlockEntity.slotItems[0] == null){
+                itemStack0 = new ItemStack(Items.BARRIER);
+                itemStack1 = new ItemStack(Items.BARRIER);
+                itemStack2 = new ItemStack(Items.BARRIER);
             }
-
-            ItemStack itemStack0 = pBlockEntity.ItemList.get(0);
-            ItemStack itemStack1 = pBlockEntity.ItemList.get(1);
-            ItemStack itemStack2 = pBlockEntity.ItemList.get(2);
-
+            else {
+                itemStack0 = pBlockEntity.slotItems[0];
+                itemStack1 = pBlockEntity.slotItems[1];
+                itemStack2 = pBlockEntity.slotItems[2];
+            }
 
 
             pPoseStack.pushPose();

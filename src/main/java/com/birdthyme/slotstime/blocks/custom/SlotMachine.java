@@ -52,6 +52,8 @@ public class SlotMachine extends BaseEntityBlock{
     public static final EnumProperty<DoubleBlockHalf> HALF = BlockStateProperties.DOUBLE_BLOCK_HALF;
     public static final BooleanProperty IS_GAMBLING = BooleanProperty.create("is_gambling");
 
+    public Player player;
+
 
     public float ironLoot = 0.1f;
     public float goldLoot = 0.05f;
@@ -194,13 +196,14 @@ public class SlotMachine extends BaseEntityBlock{
 
         if(handItem.is(SlotsTags.Items.tag("gambling_coins")) && !pState.getValue(IS_GAMBLING) && pState.getValue(HALF) == DoubleBlockHalf.UPPER){
             if(pLevel.isClientSide){
-                pLevel.playSound(pPlayer, pPos, SoundType.AMETHYST.getHitSound(), SoundSource.BLOCKS, 1f, 1f);
+                pLevel.playLocalSound(pPos, SoundType.AMETHYST.getHitSound(), SoundSource.BLOCKS, 1f, 1f, false);
             }
             if(!pLevel.isClientSide) {
                 BlockEntity blockEntity = pLevel.getBlockEntity(pPos);
                 if(blockEntity instanceof SlotMachineEntity){
                     SlotMachineEntity slotMachineEntity = (SlotMachineEntity)blockEntity;
                     slotMachineEntity.slotNumbers = slotMath(pPlayer.getItemInHand(InteractionHand.MAIN_HAND));
+                    slotMachineEntity.playerUUID = pPlayer.getUUID();
                 }
                 int itemCount = handItem.getCount();
                 handItem.setCount(itemCount - 1);
@@ -259,6 +262,11 @@ public class SlotMachine extends BaseEntityBlock{
     public float lootLuck(float loot, float luck){
         float newChance = loot * luck;
         float resultChance = loot + (newChance/10);
+        if(resultChance >= 1.5){
+            return 0f;
+        } else if (resultChance >= 1.0) {
+            return 0.7f;
+        }
 
         return resultChance;
     }
@@ -292,10 +300,6 @@ public class SlotMachine extends BaseEntityBlock{
 
     @Nullable
     public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level pLevel, BlockState pState, BlockEntityType<T> pBlockEntityType) {
-        if(pLevel.isClientSide){
-            return null;
-        }
-
         return pState.getValue(IS_GAMBLING) && pState.getValue(HALF) == DoubleBlockHalf.UPPER ? createTickerHelper(pBlockEntityType, SlotsBlocks.SLOTMACHINE_BE.get(),
                 (pLevel1, pPos, pState1, pBlockEntity) -> pBlockEntity.tick(pLevel1, pPos, pState1, pBlockEntity)) : null;
     }
